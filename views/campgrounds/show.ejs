@@ -1,0 +1,76 @@
+
+        <% layout('layouts/boilerplate')%>
+<link rel="stylesheet" href="/stylesheets/stars.css">
+<div class="row">
+  
+        <div class="col-lg-6 offset-1">
+           <div class="card">
+                <img src="<%=camp.image%>" class="card-img-top" alt="">
+                <div class="card-body">
+                  <h5 class="card-title"><%= camp.title %></h5>
+                  <p class="card-text"><%= camp.description %></p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item text-muted"><%= camp.location %></li>
+                  <li class="list-group-item">$ <%= camp.price %> /per day</li>
+                  <li class="list-group-item">Presented by: <%=camp.provider.username%></li>
+                </ul>
+
+               <% if(currentUser&&(camp.provider.equals(currentUser))){%>
+                <div class="card-body ">
+                        <div class="d-inline">
+                        <a class="card-link btn btn-warning" href='/campgrounds/<%=camp._id%>/edit' > Edit</a>
+                        <a class="card-link btn btn-danger" href='/campgrounds/<%=camp._id%>/delete' >Delete</a>
+                         </div>
+                </div>
+                <%}%>
+              </div>
+
+              
+        </div>
+        <div class='col-lg-5'>
+          <%if(currentUser){%>
+          <form action="/campgrounds/<%=camp._id%>/review" class='mb-3'method='post'>
+            <label class='form-label'for='review'><h2>Add a Review</h2></label>
+            <div class="mb-3">
+              <fieldset class="starability-basic">
+         
+                <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                <label for="first-rate1" title="Terrible">1 star</label>
+                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                <label for="first-rate2" title="Not good">2 stars</label>
+                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                <label for="first-rate3" title="Average">3 stars</label>
+                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                <label for="first-rate4" title="Very good">4 stars</label>
+                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                <label for="first-rate5" title="Amazing">5 stars</label>
+              </fieldset>
+            </div>
+            <div class=mb-3>
+              
+              <textarea class='form-control' id='review ' name='review[body]'>Write review...</textarea>
+            </div>
+            <button class='btn btn-success'>Submit</button>
+          </form>
+          <%}%>
+          <br>
+          <h4 class='text-center'>Customer Reviews</h4>
+          <%for(let review of camp.reviews){%>
+            <div class='card mb-3'>
+              <div class='card-subtitle'><h5 class="ml-3"><%=review.author.username%></h5></div>
+            
+  <p class="starability-result" data-rating="<%=review.rating%>">
+    
+  </p>
+              <p class='card-text'><%=review.body%></p>
+              <% if(currentUser&&(review.author.equals(currentUser))){%>
+              <form class='mx-3 my-3'action="/campgrounds/<%=camp._id%>/review/<%=review._id%>?_method=delete" method='post'>
+              <button class='btn btn-sm btn-primary'>Delete</button>
+            </form>
+            <%}%>
+            </div>
+            <%}%>
+        </div>
+</div>
