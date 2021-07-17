@@ -4,8 +4,28 @@
 <div class="row">
   
         <div class="col-lg-6 offset-1">
-           <div class="card">
-                <img src="<%=camp.image%>" class="card-img-top" alt="">
+           <div class="card mb-3">
+
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+
+        
+             <% camp.images.forEach((image,i)=>{%>
+               
+              <div class='carousel-item <%= i===0 ? "active":"" %>'>
+                <img src="<%=image.url%>" class="d-block w-100" alt="...">
+              </div>
+                <%})%>  
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
                 <div class="card-body">
                   <h5 class="card-title"><%= camp.title %></h5>
                   <p class="card-text"><%= camp.description %></p>
@@ -29,7 +49,7 @@
               
         </div>
         <div class='col-lg-5'>
-          <%if(currentUser){%>
+          <%if(currentUser&&(!camp.provider.equals(currentUser))){%>
           <form action="/campgrounds/<%=camp._id%>/review" class='mb-3'method='post'>
             <label class='form-label'for='review'><h2>Add a Review</h2></label>
             <div class="mb-3">
@@ -56,9 +76,9 @@
           </form>
           <%}%>
           <br>
-          <h4 class='text-center'>Customer Reviews</h4>
+          <h4 class='text-center mb-3'><i>Customer Reviews</i></h4>
           <%for(let review of camp.reviews){%>
-            <div class='card mb-3'>
+            <div class='card mb-3 border-primary p-2'>
               <div class='card-subtitle'><h5 class="ml-3"><%=review.author.username%></h5></div>
             
   <p class="starability-result" data-rating="<%=review.rating%>">

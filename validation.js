@@ -8,7 +8,7 @@ const joi=require('joi');
 
           title:joi.string().required(),
           location :joi.string().required(),
-          image:joi.string(),
+          //image:joi.string(),
           price:joi.number().required().min(0),
           description:joi.string().required()
     

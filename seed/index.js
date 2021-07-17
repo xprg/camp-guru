@@ -25,11 +25,27 @@ const sample=(arr)=>{ return arr[Math.floor(Math.random()*arr.length)];
 }
 
 
-for( i=0;i<50;i++)
+for( i=0;i<15;i++)
 {
   let city=cities[Math.floor(Math.random()*1000)];
   let price=Math.floor(Math.random()*100);
-let camp= new Campground({title:`${sample(descriptors)} ${sample(places)}`,price:price, image:"https://source.unsplash.com/user/dnevozhai",description:"Its a great camp site with a great experience", location:`${city.city},${city.state}`,provider:"60a9ffb5b8af6f110ca7c15b"});
+let camp= new Campground({title:`${sample(descriptors)} ${sample(places)}`,price:price,description:"Its a great camp site with a great experience", location:`${city.city},${city.state}`,provider:"60a9ffb5b8af6f110ca7c15b"});
+camp.images=
+[
+  {
+
+    url: 'https://res.cloudinary.com/dip5s2gka/image/upload/v1626538838/yelpcamp/zcpupr6qfmpb6h6t7j8k.jpg',
+
+    filename: 'yelpcamp/zcpupr6qfmpb6h6t7j8k'
+  },
+  {
+
+    url: 'https://res.cloudinary.com/dip5s2gka/image/upload/v1626538838/yelpcamp/fuqn7ej452zchvbqdeuo.jpg',
+  
+    filename: 'yelpcamp/fuqn7ej452zchvbqdeuo'
+  }
+]
+
 await camp.save();
 }
 console.log("done...");
