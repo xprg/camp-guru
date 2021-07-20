@@ -1,16 +1,24 @@
 
 
 <% layout('layouts/boilerplate')%>
-        <h2 class='my-3 p-2 border-bottom border-2 '>All Campgrounds</h2>
-        <br>
+<div class='container-fluid'>
+<div id='map' style=" width:100%; height:400px " ></div>   
+</div>    
+        
+        <div class='container'>
+            
+            <div class='row justify-content-center'>
+                <div class='col-lg-9'>
+                    <h4 class='my-3 p-2 border-bottom border-2 '>All Campgrounds</h4>
+
         <%for(let c of allcampgrounds)
             { %>
     <div class="card mb-3">
-        <div class="row"> 
-            <div class="col-md-4">
-                <img class="img-fluid" src="<%=c.images[0].url%>" >
+        <div class="row "> 
+            <div class="col-md-3">
+                <img class="img-fluid" src='<%- c.images.length>0 ? c.images[0].url : "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg" %>' >
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class='card-body'>
                     <div class="card-title">
                         <%=c.title%>
@@ -27,6 +35,13 @@
         </div>
     </div>
            <% }%>
-       
+        </div>
+        </div>
+    </div>
+    <script>
+        const mapbox_token='<%-process.env.mapbox_token%>';
+        const campgrounds={features:<%-JSON.stringify(allcampgrounds)%> }
+    </script>
+    <script src='/js/clustermap.js'  ></script>
     
   

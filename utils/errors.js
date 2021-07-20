@@ -4,7 +4,8 @@ class ExpressError extends Error{
     constructor(status,msg){
         super();
         this.status=status;
-        this.msg=msg;
+        this.message=msg;
+        this.timing=Date.now()
     }
 }
 

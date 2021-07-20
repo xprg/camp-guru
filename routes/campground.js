@@ -11,7 +11,7 @@ const upload=multer({storage})
 
 const {isLoggedIn,isProvider,campground_validate}=require('../middleware');
 
-const { index_campgrounds,new_form,create_new,show_one,render_edit_form,perform_edit,delete_campground } = require('../controllers/campgrounds');
+const { index_campgrounds,new_form,create_new,show_one,render_edit_form,perform_edit,delete_campground,weather } = require('../controllers/campgrounds');
 
 
 
@@ -33,9 +33,11 @@ router.get('/new',isLoggedIn,new_form)
       
   router.get('/:id/edit',isLoggedIn,isProvider,catchAsync(render_edit_form))
   
-  router.put('/:id/edit',isProvider,upload.array('images'),campground_validate,catchAsync(perform_edit));
+  router.put('/:id/edit',isLoggedIn,isProvider,upload.array('images'),campground_validate,catchAsync(perform_edit));
   
   
-  router.get('/:id/delete',isProvider,catchAsync(delete_campground));
+  router.get('/:id/delete',isLoggedIn,isProvider,catchAsync(delete_campground));
+
+  router.get('/:id/weather',isLoggedIn,catchAsync(weather));
   
   module.exports=router;

@@ -1,5 +1,8 @@
+
 const mongoose=require('mongoose');
 const reviews = require('./reviews');
+
+const opts={toJSON:{virtuals:true}};
 
 const campgroundSchema= new mongoose.Schema({
     title:{
@@ -20,7 +23,19 @@ images: [
 }
 ],
 
+geometry:{
 
+type:{
+    type:String,
+    enum:["Point"],
+    required:true
+},
+coordinates:{
+    type:[Number],
+    required:true
+}
+
+},
 
 
 price:{
@@ -42,6 +57,11 @@ reviews: [{
      ref:'User'
  }
 
+},opts);
+
+campgroundSchema.virtual('properties.map_link').get(function(){
+      return `<strong><a href="/campgrounds/${this._id}">${this.title}</a></strong>
+      <p><i>${this.description.substring(0,30)}...</i></p>`
 });
 
 campgroundSchema.post('findOneAndDelete',async(doc)=>{
@@ -54,6 +74,6 @@ campgroundSchema.post('findOneAndDelete',async(doc)=>{
 
 })
 
- const Campground=mongoose.model('Campground',campgroundSchema);
+const Campground=mongoose.model('Campground',campgroundSchema);
 module.exports=Campground;
 

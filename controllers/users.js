@@ -54,7 +54,7 @@ res.redirect(redirectUrl);}
 module.exports.logout=(req,res)=>{
     req.logout();
     req.flash('success','successfully logged out');
-    res.redirect('/campgrounds');
+    res.redirect('/');
 }  
 
 

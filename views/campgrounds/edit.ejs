@@ -6,7 +6,7 @@
     </div>
     
 
-        <div class="col-6 offset-2">
+        <div class="col-6 offset-3">
             <form action='/campgrounds/<%=campground._id%>/edit?_method=put' method='post'class="validate" enctype="multipart/form-data" novalidate>
                 <div class='mb-3'>
                     <label class='form-label' for='title'>Title</label>
@@ -42,7 +42,7 @@
                   <input class="form-control" type="textarea" id='description' name='campground[description]' value="<%=campground.description%>">
                 </div>
 
-    <button class="btn btn-info">Update</button>
+    <button class="btn btn-info text-white">Update</button>
     
             </form>
           </div>

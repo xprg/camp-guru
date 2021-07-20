@@ -20,15 +20,17 @@ db.once('open', function() {
 const seedit=async()=> {
 
 await Campground.deleteMany({});
+await User
 
 const sample=(arr)=>{ return arr[Math.floor(Math.random()*arr.length)];
 }
 
 
-for( i=0;i<15;i++)
+for( i=0;i<50;i++)
 {
   let city=cities[Math.floor(Math.random()*1000)];
   let price=Math.floor(Math.random()*100);
+
 let camp= new Campground({title:`${sample(descriptors)} ${sample(places)}`,price:price,description:"Its a great camp site with a great experience", location:`${city.city},${city.state}`,provider:"60a9ffb5b8af6f110ca7c15b"});
 camp.images=
 [
@@ -44,7 +46,10 @@ camp.images=
   
     filename: 'yelpcamp/fuqn7ej452zchvbqdeuo'
   }
+
+  
 ]
+camp.geometry={ type: 'Point', coordinates: [ city.longitude, city.latitude ] }
 
 await camp.save();
 }
