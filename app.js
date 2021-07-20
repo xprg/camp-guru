@@ -114,9 +114,6 @@ app.use('/campgrounds/:id/review',review_router);
 app.use('/',user_router);
 
 
-app.all('*', (req, res, next) => {
-  next(new expressError(404,'Page not found'));
-}) 
                                                                           // error handlers
 app.use((err,req,res,next)=>{
  console.log(err);
