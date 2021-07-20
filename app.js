@@ -37,9 +37,8 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname,'public')));
 app.use(mongo_sanitize())
 
-//const db_url=process.env.db_url
-//mongoose.connect(db_url,
-const db_url='mongodb://localhost:27017/yelpcamp';
+const db_url=process.env.db_url||'mongodb://localhost:27017/yelpcamp';
+
 mongoose.connect(db_url,
 {
 useNewUrlParser:'true',
@@ -59,17 +58,17 @@ db.once('open', function() {
 
 
 
-
+const secret=process.env.secret||"mustbesecret";
 
 session_config={
   store:MongoStore.create({
     mongoUrl:db_url,
-    secret:"mustbesecret",
+    secret:secret,
     touchAfter:24*60*60
     }),
-    
+
   name:"sid",
-  secret:"mustbesecret",
+  secret:secret,
   resave:'false',
   saveUninitialized:"true",
   cookie:{
