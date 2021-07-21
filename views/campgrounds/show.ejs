@@ -35,7 +35,8 @@
                 <div class="card-body ">
                    <% if(currentUser){ %>
                    <div class="d-inline ">
-                      <a class='card-link btn btn-primary' href='/campgrounds/<%=camp._id%>/weather'> Check Weather</a>
+                      <!-- <a class='card-link btn btn-primary' href='/campgrounds/<%=camp._id%>/weather'> Check Weather</a> -->
+                      <button onclick="show_weather()" class='btn btn-primary'>Weather</button>
                       </div>
                       <% if(camp.provider.equals(currentUser)){%>
                       <div class='text-end'>
@@ -118,3 +119,9 @@
           camp=<%-JSON.stringify(camp)%>
        </script>
        <script src='/js/showmap.js'></script>
+       
+       <script>
+          function show_weather(){
+             window.open('https://www.windy.com/?<%-camp.geometry.coordinates[1]%>,<%-camp.geometry.coordinates[0]%>,8',"_blank");
+          }
+       </script>
