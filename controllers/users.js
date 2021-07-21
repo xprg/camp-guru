@@ -20,7 +20,7 @@ module.exports.create_new_user=async(req,res)=>{
           { return next(err);
 
           }
-        req.flash('success',"Welcome to Yelpcamp");
+        req.flash('success',"Welcome fellow Camper");
         return res.redirect('/campgrounds');
         })
     }
